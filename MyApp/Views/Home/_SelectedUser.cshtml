@@ -1,0 +1,24 @@
+﻿@model ApplicationUserViewModel
+
+<br />
+<br />
+<br />
+<h3>Role User Information</h3>
+<form class="form form-horizontal" asp-controller="Home" asp-action="Update" asp-antiforgery="false" method="POST">
+	<input type="hidden" asp-for="UserEmail" />
+	<div class="form-group">
+		<div class="col-md-3">
+			<label>Name:</label>
+			<input type="text" class="form-control" asp-for="@Model.FullName">
+			<span asp-validation-for="@Model.FullName"></span>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-md-3">
+			<label>Gender:</label>
+			<input type="text" class="form-control" asp-for="@Model.Gender">
+			<span asp-validation-for="@Model.Gender"></span>
+		</div>
+	</div>
+	<button type="submit" class="btn btn-default">Update</button>
+</form>

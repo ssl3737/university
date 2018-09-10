@@ -1,0 +1,103 @@
+﻿@model LoginViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+@{
+	Layout = null;
+}
+
+
+<head>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+	<link href="~/css/login.css" rel="stylesheet" />
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<!------ Include the above in your HEAD tag ---------->
+	<link href='http://fonts.googleapis.com/css?family=Raleway:500' rel='stylesheet' type='text/css'>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap-theme.min.css">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+	<div class="middlePage">
+		<div class="page-header">
+			<h1 class="logo">University <small>Welcome to our place!</small></h1>
+		</div>
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<h3 class="panel-title">Please Sign In</h3>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-md-5">
+						<section>
+							@{
+								var loginProviders = (await SignInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+								if (loginProviders.Count == 0)
+								{
+									<div>
+										<p>
+											No external authentication services. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this</a>.
+										</p>
+									</div>
+								}
+								else
+								{
+									<form asp-action="ExternalLogin" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
+										<div>
+											<p>
+												@foreach (var provider in loginProviders)
+												{
+													if (@provider.Name == "Google")
+													{
+														<div class="btn-group">
+															<a class='btn btn-danger disabled'><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_google.png"></a>
+															<button class='btn btn-danger' style="width:12em" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"> Sign in with @provider.Name</button>
+														</div><br /><br />
+													}
+													if (@provider.Name == "Facebook")
+													{
+														<div class="btn-group">
+															<a class='btn btn-primary disabled'><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_facebook.png"></a>
+															<button class='btn btn-primary' style="width:12em" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"> Sign in with @provider.Name</button>
+														</div><br /><br />
+													}
+													if (@provider.Name == "Twitter")
+													{
+														<div class="btn-group">
+															<a class='btn btn-info disabled'><img src="~/images/twitter-16.png" ></a>
+															<a class='btn btn-info' style="width:12em" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"> Sign in with @provider.Name</a>
+														</div><br />
+													}
+												}
+											</p>
+										</div>
+									</form>
+								}
+							}
+						</section>
+					</div>
+					<form method="post" class="form-horizontal">
+						<fieldset>
+							<div class="col-md-11">
+								<input asp-for="Email" type="text" placeholder="Enter User Email" class="form-control input-md">
+								<span asp-validation-for="Email" class="text-danger"></span>
+								<div class="spacing"><input type="checkbox" name="checkboxes" id="checkboxes-0" value="1"><small> Remember me</small></div>
+								<input asp-for="Password" type="password" placeholder="Enter Password" class="form-control input-md">
+								<span asp-validation-for="Password" class="text-danger"></span>
+								<div class="spacing"><a href="#"><small> Forgot Password?</small></a><br /></div>
+								<a asp-controller="Account" asp-action="GeneralRegister">Register</a>
+								<button id="singlebutton" name="singlebutton" class="btn btn-sm pull-right" type="submit">Sign In</button>
+							</div>
+						</fieldset>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>

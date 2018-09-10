@@ -1,0 +1,86 @@
+﻿@model AdminViewModel
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@functions{
+	public string GetAntiXsrfRequestToken()
+	{
+		return Xsrf.GetAndStoreTokens(Context).RequestToken;
+	}
+}
+@{
+	ViewBag.Title = "Admin";
+}
+
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('../images/contact-bg.jpg')">
+	<div class="overlay"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-md-10 mx-auto">
+				<div class="page-heading">
+					<h1>Register</h1>
+					<span class="subheading">Register please</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+<div class="form-group col-md-4">
+		<label>Choose Role</label>
+		<select id="role" class="form-control" asp-items="@(new SelectList(Model.AllRoles, "Id", "Text"))"></select>
+</div>
+
+<div class="form-group col-md-4">
+		<label>Choose User Email</label>
+		<select id="user" class="form-control" asp-items="@(new SelectList(Enumerable.Empty<SelectListItem>(), "Id", "Text"))"></select>
+</div>
+<div class="form-group col-md-4">
+		<button type="submit" class="btn btn-primary" onclick="edit()">Edit</button>
+</div>
+<div id="showResult"></div>
+
+<script>
+	$("#role").change(function () {
+		var id = this.value;
+
+		$.ajax({
+			type: 'POST',
+			url: '@Url.Action("GetCascadingUsers", "HomeAPI")?id=' + id,
+			contentType: 'application/json; charset=utf-8',
+			dataType: 'json',
+			headers:
+			{
+				"RequestVerificationToken": '@GetAntiXsrfRequestToken()'
+			},
+			success: function (users) {
+				$("#user").html(""); // clear before appending new list
+				$("#user").append(
+					$('<option>-- Select --</option>').val(0));
+				$.each(users, function (i, users) {
+					$("#user").append(
+						$('<option></option>').val(users.email).html(users.email));
+				});
+			}
+		});
+	});
+
+	function edit() {
+		var userEmail = $('#user').val();
+
+		$.ajax({
+			type: 'POST',
+			url: '@Url.Action("Admin", "Home")?userEmail=' + userEmail,
+			contentType: 'application/json; charset=utf-8',
+			dataType: 'html',
+			headers:
+			{
+				"RequestVerificationToken": '@GetAntiXsrfRequestToken()'
+			},
+			success: function (result) {
+				$('#showResult').html(result);
+			},
+			error: function () {
+				alert("error");
+			}
+		});
+	}
+</script>

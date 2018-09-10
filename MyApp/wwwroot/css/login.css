@@ -1,0 +1,55 @@
+﻿/* CSS Document */
+
+body {
+	width: 100px;
+	height: 100px;
+	font-family: 'Raleway', sans-serif;
+}
+
+p {
+	color: #CCC;
+}
+
+.spacing {
+	padding-top: 7px;
+	padding-bottom: 7px;
+}
+
+.middlePage {
+	width: 680px;
+	height: 500px;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+}
+
+.logo {
+	color: #CCC;
+}
+
+.btn-danger {
+	background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_google.png');
+}
+
+img {
+	height: 3.9%;
+}
+
+.logo {
+	font-weight: 800;
+	font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.panel-info {
+	border-color: #212529 !important;
+}
+
+.panel.panel-info > .panel-heading {
+	background-color: #212529 !important;
+	background-image: none;
+	opacity: 0.5;
+	color: white;
+}

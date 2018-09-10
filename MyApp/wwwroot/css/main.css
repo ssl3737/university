@@ -1,0 +1,73 @@
+﻿#loadImage {
+	top: 0;
+	left: 0;
+	position: fixed;
+	z-index: 20001;
+	width: 100%;
+	height: 100%;
+	/*margin-left: -16px;
+    margin-top: -16px;*/
+	display: none;
+	/*background: rgba(255, 255, 255, .5) url(/images/loading.gif) 50% 50% no-repeat;*/
+	background: rgba(255, 255, 255, .5) 50% 50% no-repeat;
+	text-align: center;
+}
+
+/* Dropdown Button */
+.dropbtn {
+	color: white;
+	padding: 16px;
+	font-size: 16px;
+	border: none;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #f1f1f1;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+	background-color: #ddd;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+	display: block;
+}
+
+.dropdown-content {
+	font-size: 15px;
+}
+
+#user, #role, #teacher, #course, #className, #teacherName, #studentName, #Student_FullName, #Student_Email, #Student_Gender {
+	font-size: 15px;
+	height: 40px;
+}
+
+.btn-primary {
+	margin-top: 25px;
+}
+
+#editBtn {
+	margin-top: 35px;
+}
