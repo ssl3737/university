@@ -10,10 +10,10 @@ namespace Data.Data.Repositories
 {
     public class RoleRepository : IRoleRepository
     {
-        private readonly MyAppContext _context;
+        private readonly UniversityContext _context;
         //private readonly RoleManager<ApplicationUser> _roleManager;
 
-        public RoleRepository(MyAppContext context)
+        public RoleRepository(UniversityContext context)
         {
             _context = context;
         }

@@ -13,7 +13,7 @@ using Data.Data;
 using Data.Data.Repositories;
 using Models.Entities;
 
-namespace MyApp
+namespace University
 {
     public class Startup
     {
@@ -27,17 +27,17 @@ namespace MyApp
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {           
-            services.AddDbContext<MyAppContext>(options =>
+            services.AddDbContext<UniversityContext>(options =>
             {
-                options.UseSqlServer(_config.GetConnectionString("MyAppConnection"),
-                b => b.MigrationsAssembly("MyApp"));
+                options.UseSqlServer(_config.GetConnectionString("UniversityConnection"),
+                b => b.MigrationsAssembly("University"));
             });
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
                 options.Password.RequiredLength = 6;
             })
-            .AddEntityFrameworkStores<MyAppContext>()
+            .AddEntityFrameworkStores<UniversityContext>()
             .AddDefaultTokenProviders();
             services.AddAuthentication().AddGoogle(googleOptions =>
             {

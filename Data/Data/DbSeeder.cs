@@ -9,12 +9,12 @@ namespace Data.Data
 {
     public class DbSeeder
     {
-        private MyAppContext _context;
+        private UniversityContext _context;
         private UserManager<ApplicationUser> _userManager;
         private RoleManager<IdentityRole> _roleManager;
 
 
-        public DbSeeder(MyAppContext context,
+        public DbSeeder(UniversityContext context,
             UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager)
         {

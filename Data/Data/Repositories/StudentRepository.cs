@@ -15,11 +15,11 @@ namespace Data.Data.Repositories
 {
     public class StudentRepository : IStudentRepository
     {
-        private readonly MyAppContext _context;
+        private readonly UniversityContext _context;
         private readonly IConfiguration _config;
         public static SqlConnection connection;
 
-        public StudentRepository(MyAppContext context,
+        public StudentRepository(UniversityContext context,
                                  IConfiguration config)
         {
             _context = context;
@@ -28,7 +28,7 @@ namespace Data.Data.Repositories
 
         public SqlConnection GetConnection()
         {
-            string connectionString = _config.GetConnectionString("MyAppConnection");
+            string connectionString = _config.GetConnectionString("UniversityConnection");
 
             return new SqlConnection(connectionString);
         }
