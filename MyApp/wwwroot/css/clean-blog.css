@@ -103,7 +103,7 @@ img::-moz-selection {
 }
 
 #mainNav .navbar-nav > li.nav-item > a {
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 800;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -117,6 +117,7 @@ img::-moz-selection {
   #mainNav .navbar-brand {
     padding: 10px 20px;
     color: #fff;
+    font-size: 25px;
   }
   #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
     color: rgba(255, 255, 255, 0.8);
@@ -420,3 +421,11 @@ footer .copyright {
   font-size: 16px;
   padding: 25px 35px;
 }
+
+#showResult {
+    padding-left: 20px;
+}
+
+    #showResult input {
+        font-size: 14px !important;
+    }
