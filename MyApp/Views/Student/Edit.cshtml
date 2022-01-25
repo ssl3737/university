@@ -1,0 +1,38 @@
+﻿@model Student
+
+@{
+	ViewBag.Title = "Edit";
+}
+
+<h3>Student Information</h3>
+<form class="form form-horizontal" asp-antiforgery="false" method="POST">
+	<div class="form-group">
+		<div class="col-md-3">
+			<label>Id:</label>
+			<input type="text" class="form-control" asp-for="@Model.StudentId" disabled>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-md-3">
+			<label>Name:</label>
+			<input type="text" class="form-control" asp-for="@Model.FullName">
+			<span asp-validation-for="@Model.FullName"></span>
+		</div>
+	</div>
+	<div class="form-group">
+        <div class="col-md-3">
+            <label>Gender:</label>
+            @Html.RadioButtonFor(m => m.Gender, "Male") Male <br />
+            @Html.RadioButtonFor(m => m.Gender, "Female") Female <br />
+            <span asp-validation-for="@Model.Gender"></span>
+        </div>
+	</div>
+	<div class="form-group">
+		<div class="col-md-3">
+			<label>Country:</label>
+			<input type="text" class="form-control" asp-for="@Model.Email">
+			<span asp-validation-for="@Model.Email"></span>
+		</div>
+	</div>
+	<button type="submit" class="btn btn-primary">Update</button>
+</form>

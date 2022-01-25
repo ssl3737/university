@@ -54,19 +54,19 @@
     <Content Update="Views\Home\ManageCourse.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Home\Edit.cshtml">
+    <Content Update="Views\Student\Edit.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Home\_News.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Home\_SelectedStudent.cshtml">
+    <Content Update="Views\Student\_SelectedStudent.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Home\_SelectedCourse.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Home\_StudentTable.cshtml">
+    <Content Update="Views\Student\_StudentTable.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Home\_SelectedUser.cshtml">

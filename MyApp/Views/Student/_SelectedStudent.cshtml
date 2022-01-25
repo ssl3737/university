@@ -1,0 +1,30 @@
+﻿@model StudentViewModel
+
+<div class="col-md">
+	<h2>Student Information</h2>
+	<form class="form form-horizontal" asp-controller="Student" asp-action="StudentEdit" asp-antiforgery="false" method="POST">
+		<div class="form-group">
+			<div class="col-md-3">
+				<label>Name:</label>
+				<input type="text" class="form-control" asp-for="@Model.Student.FullName">
+				<span asp-validation-for="@Model.Student.FullName"></span>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-md-3">
+				<label>Email:</label>
+				<input type="text" class="form-control" asp-for="@Model.Student.Email">
+				<span asp-validation-for="@Model.Student.Email"></span>
+			</div>
+		</div>
+		<div class="form-group">
+            <div class="col-md-3">
+                <label>Gender:</label> <br />
+                @Html.RadioButtonFor(m => m.Student.Gender, "Male") Male <br />
+                @Html.RadioButtonFor(m => m.Student.Gender, "Female") Female <br />
+                <span asp-validation-for="@Model.Student.Gender"></span>
+            </div>
+		</div>
+		<button type="submit" class="btn btn-primary">Update</button>
+	</form>
+</div>

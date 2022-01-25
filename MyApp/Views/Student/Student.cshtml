@@ -1,0 +1,62 @@
+﻿@model StudentViewModel
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@functions{
+	public string GetAntiXsrfRequestToken()
+	{
+		return Xsrf.GetAndStoreTokens(Context).RequestToken;
+	}
+}
+@{
+	ViewBag.Title = "Manage Student";
+}
+
+<div id="loadImage"></div>
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('../images/student.jpg')">
+	<div class="overlay"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-md-10 mx-auto">
+				<div class="site-heading">
+					<h1>Students</h1>
+					<span class="subheading">Manage Student</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+<!-- Main Content -->
+<div class="form-group col-md-4">
+	<label>Student Name</label>
+	<p class="help-block text-danger"></p>
+	<select id="studentName" class="form-control" asp-items="@(new SelectList(Model.AllStudents, "Id", "Text"))"></select>
+</div>
+<div class="form-group">
+	<button id="editBtn" type="button" class="btn btn-primary" onclick="update()">Edit</button>
+</div>
+<div id="showResult"></div>
+<script>
+	function update() {
+		var data = {
+			studentName: $('#studentName').val()
+		};
+		$.ajax({
+			type: 'POST',
+			url: '@Url.Action("StudentUpdate", "Student")',
+			contentType: 'application/json; charset=utf-8',
+			dataType: 'html',
+			data: JSON.stringify(data),
+			headers:
+			{
+				"RequestVerificationToken": '@GetAntiXsrfRequestToken()'
+			},
+			success: function (result) {
+				$('#showResult').html('');
+				$('#showResult').html(result);
+			},
+			error: function () {
+				alert("error");
+			}
+		});
+	}
+</script>
