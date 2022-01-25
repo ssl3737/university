@@ -6,106 +6,105 @@
 	<meta name="author" content="">
 	<title>Clean Blog - Start Bootstrap Theme</title>
 	<!-- Bootstrap core CSS -->
-	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<!-- Custom fonts for this template -->
-	<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href="~/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 	<!-- Custom styles for this template -->
-	<link href="css/clean-blog.min.css" rel="stylesheet">
+	<link href="~/css/clean-blog.min.css" rel="stylesheet">
 </head>
 <body>
-	<!-- Page Header -->
-	<header class="masthead" style="background-image: url('../images/contact-bg.jpg')">
-		<div class="overlay"></div>
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 col-md-10 mx-auto">
-					<div class="page-heading">
-						<h1>Register</h1>
-						<span class="subheading">Register please before login</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</header>
-	<!-- Main Content -->
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-8 col-md-10 mx-auto">
-				<form name="sentMessage" id="contactForm" novalidate method="post">
-					<div class="control-group">
-						<div class="col-xs-12 floating-label-form-group">
-							<input style="background-color: white" placeholder="Enter your Role" type="text" class="form-control" disabled>
-						</div>
-						<div class="form-group col-xs-12 controls">
-							<select style="font-size: 18px; height: 40px;}" id="role" class="form-control placeholder selectpicker" asp-for="@Model.Role" asp-items="@(new SelectList(Model.AllRoles, "Id", "Text"))"></select>
-						</div>
-					</div>
-					<div class="control-group">
-						<div class="form-group col-xs-12 floating-label-form-group controls">
-							<label>Email</label>
-							<input asp-for="@Model.RegisterViewModel.Email" placeholder="Enter your Email" type="text" class="form-control">
-							<span asp-validation-for="@Model.RegisterViewModel.Email" class="text-danger"></span>
-							<p class="help-block text-danger"></p>
-						</div>
-					</div>
-					<div class="control-group">
-						<div class="form-group col-xs-12 floating-label-form-group controls">
-							<label>Full Name</label>
-							<input asp-for="@Model.RegisterViewModel.FullName" placeholder="Enter your Full Name" type="text" class="form-control">
-							<span asp-validation-for="@Model.RegisterViewModel.FullName" class="text-danger"></span>
-							<p class="help-block text-danger"></p>
-						</div>
-					</div>
-					<div class="control-group">
-						<div class="form-group col-xs-12 floating-label-form-group controls">
-							<label>Gender</label>
-							@Html.RadioButtonFor(m => m.RegisterViewModel.Gender, "Male")
-							<input style="background-color: white" placeholder="Male " disabled>
-							@Html.RadioButtonFor(m => m.RegisterViewModel.Gender, "Female")
-							<input style="background-color: white" placeholder="Female " disabled>
-							@*<input asp-for="@Model.RegisterViewModel.Gender" checked="checked" id="Gender" name="Gender" type="radio" value="Male" />
-							<input style="background-color: white" placeholder="Male " disabled>
-							<input asp-for="@Model.RegisterViewModel.Gender" checked="checked" id="Gender" name="Gender" type="radio" value="Female" />
-							<input style="background-color: white" placeholder="Female " disabled>*@
+    <!-- Page Header -->
+    <header class="masthead" style="background-image: url('../images/contact-bg.jpg')">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="page-heading">
+                        <h1>Register</h1>
+                        <span class="subheading">Register please before login</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <form name="sentMessage" id="contactForm" novalidate method="post">
+                    <div class="control-group">
+                        <div class="col-xs-12 floating-label-form-group">
+                            <input style="background-color: white" placeholder="Enter your Role" type="text" class="form-control" disabled>
+                        </div>
+                        <div class="form-group col-xs-12 controls">
+                            <select style="font-size: 18px; height: 40px;}" id="role" class="form-control placeholder selectpicker" asp-for="@Model.Role" asp-items="@(new SelectList(Model.AllRoles, "Id", "Text"))"></select>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label>Email</label>
+                            <input asp-for="@Model.RegisterViewModel.Email" placeholder="Enter your Email" type="text" class="form-control">
+                            <span asp-validation-for="@Model.RegisterViewModel.Email" class="text-danger"></span>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label>Full Name</label>
+                            <input asp-for="@Model.RegisterViewModel.FullName" placeholder="Enter your Full Name" type="text" class="form-control">
+                            <span asp-validation-for="@Model.RegisterViewModel.FullName" class="text-danger"></span>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label>Gender</label>
+                            @Html.RadioButtonFor(m => m.RegisterViewModel.Gender, "Male", new { @id = "male" })
+                            <input style="background-color: white" placeholder="Male " disabled>
+                            @Html.RadioButtonFor(m => m.RegisterViewModel.Gender, "Female", new { @id = "female" })
+                            <input style="background-color: white" placeholder="Female " disabled>
+                            @*<input asp-for="@Model.RegisterViewModel.Gender" checked="checked" id="Gender" name="Gender" type="radio" value="Male" />
+                                <input style="background-color: white" placeholder="Male " disabled>
+                                <input asp-for="@Model.RegisterViewModel.Gender" checked="checked" id="Gender" name="Gender" type="radio" value="Female" />
+                                <input style="background-color: white" placeholder="Female " disabled>*@
 
-							<span asp-validation-for="@Model.RegisterViewModel.Gender" class="text-danger"></span>
-							<p class="help-block text-danger"></p>
-						</div>
-					</div>
-					<div class="control-group">
-						<div class="form-group col-xs-12 floating-label-form-group controls">
-							<label>Password</label>
-							<input asp-for="@Model.RegisterViewModel.Password" placeholder="Enter your Password" type="password" class="form-control">
-							<span asp-validation-for="@Model.RegisterViewModel.Password" class="text-danger"></span>
-							<p class="help-block text-danger"></p>
-						</div>
-					</div>
-					<div class="control-group">
-						<div class="form-group col-xs-12 floating-label-form-group controls">
-							<label>Confirm Password</label>
-							<input asp-for="@Model.RegisterViewModel.ConfirmPassword" placeholder="Re-enter your Password" type="password" class="form-control">
-							<span asp-validation-for="@Model.RegisterViewModel.ConfirmPassword" class="text-danger"></span>
-							<p class="help-block text-danger"></p>
-						</div>
-					</div>
-					<br>
-					<div id="success"></div>
-					<div class="form-group">
-						<button type="submit" class="btn btn-primary" id="sendMessageButton">Submit</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-	<hr>
-	<!-- Bootstrap core JavaScript -->
-	<script src="vendor/jquery/jquery.min.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<!-- Contact Form JavaScript -->
-	<script src="js/jqBootstrapValidation.js"></script>
-	<script src="js/contact_me.js"></script>
-	<!-- Custom scripts for this template -->
-	<script src="js/clean-blog.min.js"></script>
+                            <span asp-validation-for="@Model.RegisterViewModel.Gender" class="text-danger"></span>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label>Password</label>
+                            <input asp-for="@Model.RegisterViewModel.Password" placeholder="Enter your Password" type="password" class="form-control">
+                            <span asp-validation-for="@Model.RegisterViewModel.Password" class="text-danger"></span>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label>Confirm Password</label>
+                            <input asp-for="@Model.RegisterViewModel.ConfirmPassword" placeholder="Re-enter your Password" type="password" class="form-control">
+                            <span asp-validation-for="@Model.RegisterViewModel.ConfirmPassword" class="text-danger"></span>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <br>
+                    <div id="success"></div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" id="sendMessageButton">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <!-- Bootstrap core JavaScript -->
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Contact Form JavaScript -->
+    <script src="~/js/jqBootstrapValidation.js"></script>
+    <script src="~/vendor/jquery/jquery.min.js"></script>
+    <!-- Custom scripts for this template -->
+    <script src="~/js/clean-blog.min.js"></script>
 </body>
