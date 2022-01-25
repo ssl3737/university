@@ -429,3 +429,6 @@ footer .copyright {
     #showResult input {
         font-size: 14px !important;
     }
+    #showResult #Student_Gender {
+        height: auto !important;
+    }

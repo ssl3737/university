@@ -18,11 +18,12 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<div class="col-md-3">
-				<label>Gender:</label>
-				<input type="text" class="form-control" asp-for="@Model.Student.Gender">
-				<span asp-validation-for="@Model.Student.Gender"></span>
-			</div>
+            <div class="col-md-3">
+                <label>Gender:</label> <br />
+                @Html.RadioButtonFor(m => m.Student.Gender, "Male") Male <br />
+                @Html.RadioButtonFor(m => m.Student.Gender, "Female") Female <br />
+                <span asp-validation-for="@Model.Student.Gender"></span>
+            </div>
 		</div>
 		<button type="submit" class="btn btn-primary">Update</button>
 	</form>
