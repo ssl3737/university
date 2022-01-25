@@ -58,13 +58,13 @@
 							<div class="dropdown-content">
 								@if (User.IsInRole("Teacher") || User.IsInRole("Admin"))
 								{
-									<a class="nav-item" asp-controller="Home" asp-action="CreateCourse">Create Course</a>
-									<a asp-controller="Home" asp-action="ManageCourse">Manage Course</a>
+									<a class="nav-item" asp-controller="Course" asp-action="CreateCourse">Create Course</a>
+									<a asp-controller="Course" asp-action="ManageCourse">Manage Course</a>
 								}
-								<a class="nav-item" asp-controller="Home" asp-action="ViewCourse">View Course</a>
+								<a class="nav-item" asp-controller="Course" asp-action="ViewCourse">View Course</a>
 								@if (User.IsInRole("Student"))
 								{
-									<a asp-controller="Home" asp-action="EnrollCourse">Enroll Course</a>
+									<a asp-controller="Course" asp-action="EnrollCourse">Enroll Course</a>
 								}
 							</div>
 						</li>

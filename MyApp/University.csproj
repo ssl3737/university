@@ -45,13 +45,13 @@
     <Content Update="Views\Account\GeneralRegister.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Home\EnrollCourse.cshtml">
+    <Content Update="Views\Course\EnrollCourse.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Home\ViewCourse.cshtml">
+    <Content Update="Views\Course\ViewCourse.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Home\ManageCourse.cshtml">
+    <Content Update="Views\Course\ManageCourse.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Student\Edit.cshtml">
@@ -63,7 +63,7 @@
     <Content Update="Views\Student\_SelectedStudent.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Home\_SelectedCourse.cshtml">
+    <Content Update="Views\Course\_SelectedCourse.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Student\_StudentTable.cshtml">
