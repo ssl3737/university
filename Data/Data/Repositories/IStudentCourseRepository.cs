@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Models.Entities;
+﻿using Models.Entities;
 
 namespace Data.Data.Repositories
 {

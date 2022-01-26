@@ -1,7 +1,5 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
-using Models;
 using Models.Entities;
 using Models.StpModels;
 using System;
@@ -9,7 +7,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Data.Data.Repositories
 {
