@@ -1,4 +1,5 @@
-﻿using Models.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Models.Entities;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -20,13 +21,15 @@ namespace Data.Data.Repositories
 
         public IEnumerable<Course> GetAllCourses()
         {
-            var result = _context.Courses.ToList();
+            var result = _context.Courses
+                .Include(i => i.Instructor)
+                .ToList();
             return result;
         }
 
-        public int GetCourseIdByTeacherAndCourse(string course, string teacher)
+        public int GetCourseIdByTeacherAndCourse(string course, string instructor)
         {
-            var id = _context.Courses.Where(a => a.CourseName == course && a.TeacherName == teacher).SingleOrDefault().CourseId;
+            var id = _context.Courses.Where(a => a.CourseName == course && a.Instructor.FullName == instructor).SingleOrDefault().CourseId;
             return id;
         }
 
@@ -35,7 +38,7 @@ namespace Data.Data.Repositories
             var courseId = _context.Courses.Where(a => a.CourseName == course).SingleOrDefault().CourseId;
             List<string> teachers = _context.Courses
                 .Where(a => a.CourseId == courseId)
-                .Select(b => b.TeacherName).Distinct()
+                .Select(b => b.Instructor.FullName).Distinct()
                 .ToList();
             return teachers;
         }

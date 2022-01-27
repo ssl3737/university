@@ -38,7 +38,7 @@ namespace University.Controllers
                 {
                     CourseId = c.CourseId,
                     CourseName = c.CourseName,
-                    TeacherName = c.TeacherName
+                    Instructor = c.Instructor
                 });
             }
 
@@ -70,7 +70,7 @@ namespace University.Controllers
                 {
                     CourseId = c.CourseId,
                     CourseName = c.CourseName,
-                    TeacherName = c.TeacherName,
+                    Instructor = c.Instructor,
                     IsEnrolled = _studentCourseRepository.FindStudentCourse(currentUserName, c.CourseId) == null ? false : true
 
                 });
@@ -88,7 +88,7 @@ namespace University.Controllers
         [Authorize(Roles = "Admin, Teacher")]
         public IActionResult CourseUpdate([FromBody] AddCourseViewModel vm)
         {
-            var id = _courseRepository.GetCourseIdByTeacherAndCourse(vm.CourseName, vm.TeacherName);
+            var id = _courseRepository.GetCourseIdByTeacherAndCourse(vm.CourseName, vm.InstructorName);
             var course = _courseRepository.GetCourses(id);
             var allCourses = _courseRepository.GetAllCourses();
             var courses = new List<Course>();
@@ -96,7 +96,7 @@ namespace University.Controllers
             {
                 CourseId = course.CourseId,
                 CourseName = course.CourseName,
-                TeacherName = course.TeacherName
+                Instructor = course.Instructor
             };
 
             foreach (var c in allCourses)
@@ -105,7 +105,7 @@ namespace University.Controllers
                 {
                     CourseId = c.CourseId,
                     CourseName = c.CourseName,
-                    TeacherName = c.TeacherName
+                    Instructor = c.Instructor
                 });
             }
 
@@ -125,7 +125,7 @@ namespace University.Controllers
             var model = new Course
             {
                 CourseName = viewModel.Course.CourseName,
-                TeacherName = viewModel.Course.TeacherName
+                Instructor = viewModel.Course.Instructor
             };
             //save
             _courseRepository.Edit(model);
@@ -145,7 +145,7 @@ namespace University.Controllers
                 {
                     CourseId = c.CourseId,
                     CourseName = c.CourseName,
-                    TeacherName = c.TeacherName
+                    Instructor = c.Instructor
                 });
             }
             var viewModel = new CourseTestViewModel()
@@ -192,7 +192,7 @@ namespace University.Controllers
                 {
                     CourseId = c.CourseId,
                     CourseName = c.CourseName,
-                    TeacherName = c.TeacherName
+                    Instructor = c.Instructor
                 });
             }
 
@@ -208,7 +208,6 @@ namespace University.Controllers
         public IActionResult ManageCourse()
         {
             var courses = _courseRepository.GetAllCourses();
-            var users = _roleRepository.GetAllUsersByRole("Teacher");
 
             var CoursesModel = new List<Course>();
             foreach (var c in courses)
@@ -217,7 +216,7 @@ namespace University.Controllers
                 {
                     CourseId = c.CourseId,
                     CourseName = c.CourseName,
-                    TeacherName = c.TeacherName
+                    Instructor = c.Instructor
                 });
             }
 

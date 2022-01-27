@@ -4,14 +4,16 @@ using Data.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace University.Migrations
 {
     [DbContext(typeof(UniversityContext))]
-    partial class UniversityContextModelSnapshot : ModelSnapshot
+    [Migration("20220127102441_update Person and Instructor")]
+    partial class updatePersonandInstructor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -216,19 +218,22 @@ namespace University.Migrations
                     b.ToTable("Courses");
                 });
 
-            modelBuilder.Entity("Models.Entities.Instructor", b =>
+            modelBuilder.Entity("Models.Entities.Person", b =>
                 {
                     b.Property<int>("PersonId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
                     b.Property<string>("FullName");
 
                     b.HasKey("PersonId");
 
-                    b.ToTable("Instructors");
+                    b.ToTable("People");
 
-                    b.HasDiscriminator().HasValue("Instructor");
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Person");
                 });
 
             modelBuilder.Entity("Models.Entities.Student", b =>
@@ -262,6 +267,13 @@ namespace University.Migrations
                     b.HasIndex("StudentId");
 
                     b.ToTable("StudentCourses");
+                });
+
+            modelBuilder.Entity("Models.Entities.Instructor", b =>
+                {
+                    b.HasBaseType("Models.Entities.Person");
+
+                    b.HasDiscriminator().HasValue("Instructor");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

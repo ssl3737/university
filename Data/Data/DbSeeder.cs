@@ -26,14 +26,14 @@ namespace Data.Data
         {
             if (!_context.Courses.Any())
             {
-                List<Course> courses = new List<Course>()
+                List<Instructor> instructors = new List<Instructor>()
                 {
-                    new Course() { TeacherName = "Sunsin Lee", CourseName = "Korean" },
-                    new Course() { TeacherName = "Mike", CourseName = "English" },
-                    new Course() { TeacherName = "Sam", CourseName = "Math" }
+                    new Instructor() { FullName = "Mike Kim" },
+                    new Instructor() { FullName = "Sam Fadi" },
+                    new Instructor() { FullName = "Joy Roger" }
                 };
 
-                await _context.AddRangeAsync(courses);
+                await _context.AddRangeAsync(instructors);
                 await _context.SaveChangesAsync();
             }
 

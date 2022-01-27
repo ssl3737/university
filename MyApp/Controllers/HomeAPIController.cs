@@ -56,6 +56,7 @@ namespace University.Controllers
             }
             catch (Exception ex)
             {
+                Console.WriteLine("There was an error: {0}", ex.Message);
                 return Ok(new { status = "error" });
             }
 
@@ -78,7 +79,7 @@ namespace University.Controllers
 
                     Course course = new Course
                     {
-                        TeacherName = model.TeacherName,
+                        Instructor = model.Instructor,
                         CourseName = model.CourseName
                     };
 
@@ -106,6 +107,7 @@ namespace University.Controllers
             }
             catch (Exception ex)
             {
+                Console.WriteLine("There was an error: {0}", ex.Message);
                 return Ok(new { status = "error" });
             }
 
@@ -120,9 +122,14 @@ namespace University.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    Instructor instructor = new Instructor
+                    {
+                        FullName = vm.InstructorName
+                    };
+
                     Course course = new Course
                     {
-                        TeacherName = vm.TeacherName,
+                        Instructor = instructor,
                         CourseName = vm.CourseName,
                     };
                     _courseRepository.AddCourse(course);
@@ -135,6 +142,7 @@ namespace University.Controllers
             }
             catch (Exception ex)
             {
+                Console.WriteLine("There was an error: {0}", ex.Message);
                 return Ok(new { status = "error" });
             }
 
@@ -153,6 +161,7 @@ namespace University.Controllers
             }
             catch (Exception ex)
             {
+                Console.WriteLine("There was an error: {0}", ex.Message);
                 return Ok(new { status = "error" });
             }
         }
@@ -168,6 +177,7 @@ namespace University.Controllers
             }
             catch (Exception ex)
             {
+                Console.WriteLine("There was an error: {0}", ex.Message);
                 return Ok(new { status = "error" });
             }
         }

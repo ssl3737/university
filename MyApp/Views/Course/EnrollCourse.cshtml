@@ -53,7 +53,7 @@
 				@foreach (var studentCouse in Model.AddStudentCourseViewModels)
 				{
 					<tr>
-						<td>@studentCouse.TeacherName</td>
+						<td>@studentCouse.Instructor.FullName</td>
 						<td>@studentCouse.CourseName</td>
 						@if (@studentCouse.IsEnrolled)
 						{

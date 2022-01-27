@@ -11,6 +11,8 @@ namespace Data.Data
         public DbSet<Student> Students { get; set; }   
         public DbSet<Course> Courses { get; set; }
         public DbSet<Admin> Admins { get; set; }
+        public DbSet<Instructor> Instructors { get; set; }
+        public DbSet<Person> People { get; set; }
         public DbSet<StudentCourse> StudentCourses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -18,7 +20,13 @@ namespace Data.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<StudentCourse>()
-             .HasKey(c => new { c.CourseId, c.StudentId });
+             .HasKey(sc => new { sc.CourseId, sc.StudentId });
+
+            modelBuilder.Ignore<Person>();
+
+            modelBuilder.Entity<Course>()
+                .HasOne(i => i.Instructor).WithMany(c => c.Courses);
+
         }
     }
 }

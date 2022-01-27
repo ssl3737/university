@@ -1,11 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Models.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace Models.ViewModels
 {
     public class AddCourseViewModel
     {
         [Required]
-        public string TeacherName { get; set; }
+        public string InstructorName { get; set; }
         [Required]
         public string CourseName { get; set; }
     }

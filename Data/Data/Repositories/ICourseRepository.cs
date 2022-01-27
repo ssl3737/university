@@ -11,6 +11,6 @@ namespace Data.Data.Repositories
         Course GetCourses(int id);
         void Edit(Course course);
         void Save();
-        int GetCourseIdByTeacherAndCourse(string course, string teacher);
+        int GetCourseIdByTeacherAndCourse(string course, string instructor);
     }
 }
