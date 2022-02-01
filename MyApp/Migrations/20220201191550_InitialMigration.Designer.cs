@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace University.Migrations
 {
     [DbContext(typeof(UniversityContext))]
-    [Migration("20220124040913_InitialMigration")]
+    [Migration("20220201191550_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -131,20 +131,6 @@ namespace University.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Models.Entities.Admin", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .IsRequired();
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Admins");
-                });
-
             modelBuilder.Entity("Models.Entities.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -160,9 +146,13 @@ namespace University.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<string>("FullName");
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(60);
 
-                    b.Property<string>("Gender");
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasMaxLength(60);
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -207,14 +197,31 @@ namespace University.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("CourseName")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(100);
 
-                    b.Property<string>("TeacherName")
-                        .IsRequired();
+                    b.Property<int?>("InstructorPersonId");
 
                     b.HasKey("CourseId");
 
+                    b.HasIndex("InstructorPersonId");
+
                     b.ToTable("Courses");
+                });
+
+            modelBuilder.Entity("Models.Entities.Instructor", b =>
+                {
+                    b.Property<int>("PersonId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FullName");
+
+                    b.HasKey("PersonId");
+
+                    b.ToTable("Instructors");
+
+                    b.HasDiscriminator().HasValue("Instructor");
                 });
 
             modelBuilder.Entity("Models.Entities.Student", b =>
@@ -224,13 +231,15 @@ namespace University.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email")
-                        .IsRequired();
+                        .HasMaxLength(60);
 
                     b.Property<string>("FullName")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(60);
 
                     b.Property<string>("Gender")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(60);
 
                     b.HasKey("StudentId");
 
@@ -293,6 +302,13 @@ namespace University.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Models.Entities.Course", b =>
+                {
+                    b.HasOne("Models.Entities.Instructor", "Instructor")
+                        .WithMany("Courses")
+                        .HasForeignKey("InstructorPersonId");
                 });
 
             modelBuilder.Entity("Models.Entities.StudentCourse", b =>

@@ -9,19 +9,6 @@ namespace University.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Admins",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Admins", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
                 {
@@ -54,8 +41,8 @@ namespace University.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    FullName = table.Column<string>(nullable: true),
-                    Gender = table.Column<string>(nullable: true)
+                    FullName = table.Column<string>(maxLength: 60, nullable: false),
+                    Gender = table.Column<string>(maxLength: 60, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -63,17 +50,16 @@ namespace University.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Courses",
+                name: "Instructors",
                 columns: table => new
                 {
-                    CourseId = table.Column<int>(nullable: false)
+                    PersonId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    TeacherName = table.Column<string>(nullable: false),
-                    CourseName = table.Column<string>(nullable: false)
+                    FullName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Courses", x => x.CourseId);
+                    table.PrimaryKey("PK_Instructors", x => x.PersonId);
                 });
 
             migrationBuilder.CreateTable(
@@ -82,9 +68,9 @@ namespace University.Migrations
                 {
                     StudentId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    FullName = table.Column<string>(nullable: false),
-                    Email = table.Column<string>(nullable: false),
-                    Gender = table.Column<string>(nullable: false)
+                    FullName = table.Column<string>(maxLength: 60, nullable: false),
+                    Email = table.Column<string>(maxLength: 60, nullable: true),
+                    Gender = table.Column<string>(maxLength: 60, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -198,6 +184,26 @@ namespace University.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Courses",
+                columns: table => new
+                {
+                    CourseId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CourseName = table.Column<string>(maxLength: 100, nullable: false),
+                    InstructorPersonId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Courses", x => x.CourseId);
+                    table.ForeignKey(
+                        name: "FK_Courses_Instructors_InstructorPersonId",
+                        column: x => x.InstructorPersonId,
+                        principalTable: "Instructors",
+                        principalColumn: "PersonId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "StudentCourses",
                 columns: table => new
                 {
@@ -261,6 +267,11 @@ namespace University.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Courses_InstructorPersonId",
+                table: "Courses",
+                column: "InstructorPersonId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_StudentCourses_StudentId",
                 table: "StudentCourses",
                 column: "StudentId");
@@ -268,9 +279,6 @@ namespace University.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Admins");
-
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -300,6 +308,9 @@ namespace University.Migrations
 
             migrationBuilder.DropTable(
                 name: "Students");
+
+            migrationBuilder.DropTable(
+                name: "Instructors");
         }
     }
 }

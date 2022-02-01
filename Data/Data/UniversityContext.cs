@@ -10,7 +10,6 @@ namespace Data.Data
 
         public DbSet<Student> Students { get; set; }   
         public DbSet<Course> Courses { get; set; }
-        public DbSet<Admin> Admins { get; set; }
         public DbSet<Instructor> Instructors { get; set; }
         public DbSet<Person> People { get; set; }
         public DbSet<StudentCourse> StudentCourses { get; set; }

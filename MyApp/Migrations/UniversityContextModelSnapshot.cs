@@ -129,20 +129,6 @@ namespace University.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Models.Entities.Admin", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .IsRequired();
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Admins");
-                });
-
             modelBuilder.Entity("Models.Entities.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -158,9 +144,13 @@ namespace University.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<string>("FullName");
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(60);
 
-                    b.Property<string>("Gender");
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasMaxLength(60);
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -205,7 +195,8 @@ namespace University.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("CourseName")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(100);
 
                     b.Property<int?>("InstructorPersonId");
 
@@ -238,13 +229,15 @@ namespace University.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email")
-                        .IsRequired();
+                        .HasMaxLength(60);
 
                     b.Property<string>("FullName")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(60);
 
                     b.Property<string>("Gender")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(60);
 
                     b.HasKey("StudentId");
 

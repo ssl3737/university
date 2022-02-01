@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Models.Entities
 {
@@ -9,7 +6,7 @@ namespace Models.Entities
     {
         [Key]
         public int PersonId { get; set; }
-
+        
         public string FullName { get; set; }
     }
 }
