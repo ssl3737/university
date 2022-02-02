@@ -5,6 +5,7 @@ using Models.Entities;
 using Models.ViewModels;
 using System;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,7 +14,6 @@ namespace University.Controllers
 
     public class HomeAPIController : Controller
     {
-        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IStudentRepository _studentRepository;
         private readonly IStudentCourseRepository _studentCourseRepository;
         private readonly ICourseRepository _courseRepository;
@@ -22,19 +22,17 @@ namespace University.Controllers
         public HomeAPIController(IStudentRepository studentRepository,
             ICourseRepository courseRepository,
             IRoleRepository roleRepository,
-            IStudentCourseRepository studentCourseRepository,
-            UserManager<ApplicationUser> userManager)
+            IStudentCourseRepository studentCourseRepository)
         {
             _studentRepository = studentRepository;
             _courseRepository = courseRepository;
             _roleRepository = roleRepository;
             _studentCourseRepository = studentCourseRepository;
-            _userManager = userManager;
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AddStudent([FromBody] AddStudentViewModel vm)
+        public async Task<IActionResult> AddStudent([FromBody] AddStudentViewModel vm)
         {
             try
             {
@@ -44,10 +42,11 @@ namespace University.Controllers
                     {
                         FullName = vm.StudentName,
                         Email = vm.StudentEmail,
-                        Gender = vm.StudentGender
+                        Gender = vm.StudentGender,
+                        EnrollmentDate = vm.StudentEnrollmentDate
                     };
-                    _studentRepository.AddStudent(student);
-                    _studentRepository.Save();
+                    await _studentRepository.AddStudentAsync(student);
+                    await _studentRepository.SaveAsync();
                 }
                 else
                 {
@@ -65,13 +64,13 @@ namespace University.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AddStudentCourse(string id)
+        public async Task<IActionResult> AddStudentCourse(string id)
         {
             //var userName = User.FindFirst(ClaimTypes.GivenName).Value;
             var userEmail = User.FindFirst(ClaimTypes.Name).Value;
             var studentId = _studentRepository.GetStudentIdByEmail(userEmail);
             var model = _courseRepository.GetCourses(Convert.ToInt32(id));
-            var studentModel = _studentRepository.GetStudent(studentId);
+            var studentModel = await _studentRepository.GetStudentAsync(studentId);
             try
             {
                 if (ModelState.IsValid)
@@ -87,7 +86,8 @@ namespace University.Controllers
                     {
                         FullName = studentModel.FullName,
                         Email = studentModel.Email,
-                        Gender = studentModel.Gender
+                        Gender = studentModel.Gender,
+                        EnrollmentDate = studentModel.EnrollmentDate
                     };
 
                     StudentCourse studentCourse = new StudentCourse

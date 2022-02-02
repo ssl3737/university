@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Models.Entities;
 using Models.StpModels;
@@ -7,6 +8,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Threading.Tasks;
+
 
 namespace Data.Data.Repositories
 {
@@ -30,14 +33,14 @@ namespace Data.Data.Repositories
             return new SqlConnection(connectionString);
         }
 
-        public void AddStudent(Student student)
+        public virtual async Task AddStudentAsync(Student student)
         {
-            _context.Students.Add(student);
+            await _context.Students.AddAsync(student);
         }
 
-        public void Save()
+        public virtual async Task SaveAsync()
         {
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         public IEnumerable<Student> GetAllStudents()
@@ -47,11 +50,11 @@ namespace Data.Data.Repositories
             return result;
         }
 
-        public Student GetStudent(int id)
+        public async Task<Student> GetStudentAsync(int? id)
         {
-            var result = _context.Students.Find(id);
-
-            return result;
+            return await _context.Students
+                .AsNoTracking()
+                .SingleOrDefaultAsync(m => m.StudentId == id);
         }
 
         public int GetStudentIdByEmail(string email)
@@ -61,11 +64,12 @@ namespace Data.Data.Repositories
             return studentId;
         }
 
-        public int GetStudentIdByName(string name)
+        public async Task<Student> GetStudentByName(string name)
         {
-            var studentId = _context.Students.Where(a => a.FullName == name).SingleOrDefault().StudentId;
 
-            return studentId;
+            return await _context.Students
+                .AsNoTracking()
+                .SingleOrDefaultAsync(m => m.FullName == name);
         }
 
         public void Edit(Student student)

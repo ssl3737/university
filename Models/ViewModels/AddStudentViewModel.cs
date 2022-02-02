@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Models.ViewModels
 {
@@ -14,6 +15,8 @@ namespace Models.ViewModels
 
         [Required]
         public string StudentGender { get; set; }
-        
+
+        [Required]
+        public DateTime StudentEnrollmentDate { get; set; }
     }
 }

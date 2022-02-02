@@ -13,19 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20220127075205_create instructor.cs" />
-    <Compile Remove="Migrations\20220127075205_create instructor.Designer.cs" />
-    <Compile Remove="Migrations\20220127101727_update instructor 2.cs" />
-    <Compile Remove="Migrations\20220127101727_update instructor 2.Designer.cs" />
-    <Compile Remove="Migrations\20220127105848_update Person.cs" />
-    <Compile Remove="Migrations\20220127105848_update Person.Designer.cs" />
-    <Compile Remove="Migrations\20220201104627_update models.cs" />
-    <Compile Remove="Migrations\20220201104627_update models.Designer.cs" />
-    <Compile Remove="Migrations\20220201184846_update models.cs" />
-    <Compile Remove="Migrations\20220201184846_update models.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />

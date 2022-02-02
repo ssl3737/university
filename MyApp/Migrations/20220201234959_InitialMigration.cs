@@ -69,8 +69,9 @@ namespace University.Migrations
                     StudentId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     FullName = table.Column<string>(maxLength: 60, nullable: false),
-                    Email = table.Column<string>(maxLength: 60, nullable: true),
-                    Gender = table.Column<string>(maxLength: 60, nullable: false)
+                    Email = table.Column<string>(maxLength: 60, nullable: false),
+                    Gender = table.Column<string>(maxLength: 60, nullable: false),
+                    EnrollmentDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {

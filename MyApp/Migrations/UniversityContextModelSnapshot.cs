@@ -229,7 +229,10 @@ namespace University.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(60);
+
+                    b.Property<DateTime>("EnrollmentDate");
 
                     b.Property<string>("FullName")
                         .IsRequired()

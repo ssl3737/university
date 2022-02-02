@@ -25,7 +25,6 @@ namespace Data.Data
 
             modelBuilder.Entity<Course>()
                 .HasOne(i => i.Instructor).WithMany(c => c.Courses);
-
         }
     }
 }

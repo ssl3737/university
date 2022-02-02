@@ -1,0 +1,63 @@
+﻿@model Student
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@functions{
+    public string GetAntiXsrfRequestToken()
+    {
+        return Xsrf.GetAndStoreTokens(Context).RequestToken;
+    }
+}
+@{
+    ViewBag.Title = "Create Student";
+}
+
+<div id="loadImage"></div>
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('../images/student.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>Students</h1>
+                    <span class="subheading">Manage Student</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Main Content -->
+
+<div class="col-md">
+    <form class="form form-horizontal" method="post">
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>Name:</label>
+                <input type="text" class="form-control" asp-for="@Model.FullName">
+                <span asp-validation-for="@Model.FullName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>Email:</label>
+                <input type="text" class="form-control" asp-for="@Model.Email">
+                <span asp-validation-for="@Model.Email" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>Gender:</label> <br />
+                @Html.RadioButtonFor(m => m.Gender, "Male") Male <br />
+                @Html.RadioButtonFor(m => m.Gender, "Female") Female <br />
+                <span asp-validation-for="@Model.Gender" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>Enrollment Date:</label> <br />
+                <input type="date" class="form-control" asp-for="@Model.EnrollmentDate" value="@DateTime.Today" >
+                <span asp-validation-for="@Model.EnrollmentDate" class="text-danger"></span>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary" value="Create">Create</button>
+    </form>
+</div>

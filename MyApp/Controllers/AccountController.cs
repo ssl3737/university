@@ -101,10 +101,22 @@ namespace University.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.RegisterViewModel.Email, Email = model.RegisterViewModel.Email, FullName = model.RegisterViewModel.FullName, Gender = model.RegisterViewModel.Gender };
-                var student = new Student { Email = model.RegisterViewModel.Email, FullName = model.RegisterViewModel.FullName, Gender = model.RegisterViewModel.Gender };
+                var user = new ApplicationUser 
+                { 
+                    UserName = model.RegisterViewModel.Email, 
+                    Email = model.RegisterViewModel.Email, 
+                    FullName = model.RegisterViewModel.FullName, 
+                    Gender = model.RegisterViewModel.Gender 
+                };
+
+                var student = new Student 
+                { 
+                    Email = model.RegisterViewModel.Email, 
+                    FullName = model.RegisterViewModel.FullName, 
+                    Gender = model.RegisterViewModel.Gender,
+                    EnrollmentDate = DateTime.Now
+                };
                 var result = await _userManager.CreateAsync(user, model.RegisterViewModel.Password);
-                var role_user = new ApplicationUser { UserName = model.Role };
 
                 if (result.Succeeded)
                 {
@@ -116,8 +128,8 @@ namespace University.Controllers
                     if (role.Name == "Student")
                     {
                         //save student
-                        _studentRepository.AddStudent(student);
-                        _studentRepository.Save();
+                        await _studentRepository.AddStudentAsync(student);
+                        await _studentRepository.SaveAsync();
                     }
 
                     return RedirectToAction("Register");

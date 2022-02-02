@@ -425,10 +425,10 @@ footer .copyright {
 #showResult {
     padding-left: 20px;
 }
-
-    #showResult input {
-        font-size: 14px !important;
-    }
     #showResult #Student_Gender {
         height: auto !important;
     }
+
+.form-control {
+    font-size: 15px !important;
+}

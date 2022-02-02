@@ -1,9 +1,11 @@
 ﻿using Data.Data.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Storage;
 using Models.Entities;
 using Models.ViewModels;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace University.Controllers
 {
@@ -29,7 +31,8 @@ namespace University.Controllers
                     StudentId = s.StudentId,
                     FullName = s.FullName,
                     Gender = s.Gender,
-                    Email = s.Email
+                    Email = s.Email,
+                    EnrollmentDate = s.EnrollmentDate
                 });
             }
 
@@ -50,14 +53,14 @@ namespace University.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
-        public PartialViewResult Student(StudentViewModel model)
+        [Authorize(Roles = "Admin, Teacher")]
+        public async Task<PartialViewResult> Student(StudentViewModel model)
         {
             if (ModelState.IsValid)
             {
                 //save
-                _studentRepository.AddStudent(model.Student);
-                _studentRepository.Save();
+                await _studentRepository.AddStudentAsync(model.Student);
+                await _studentRepository.SaveAsync();
             }
             else
             {
@@ -75,79 +78,120 @@ namespace University.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin, Teacher")]
-        public IActionResult StudentUpdate([FromBody] AddStudentViewModel vm)
+        public async Task<IActionResult> StudentUpdate([FromBody] AddStudentViewModel vm)
         {
-            var studentId = _studentRepository.GetStudentIdByName(vm.StudentName);
-            var student = _studentRepository.GetStudentById(studentId);
+            var student = await _studentRepository.GetStudentByName(vm.StudentName);
 
             var studentModel = new Student
             {
-                StudentId = student.StudentById[0].StudentId,
-                Email = student.StudentById[0].Email,
-                FullName = student.StudentById[0].FullName,
-                Gender = student.StudentById[0].Gender
+                StudentId = student.StudentId,
+                Email = student.Email,
+                FullName = student.FullName,
+                Gender = student.Gender,
+                EnrollmentDate = student.EnrollmentDate
             };
 
             var viewModel = new StudentViewModel
             {
                 Student = studentModel
             };
+
             return PartialView("_SelectedStudent", viewModel);
         }
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public IActionResult StudentEdit(StudentViewModel viewModel)
+        public async Task<IActionResult> StudentEdit(StudentViewModel viewModel)
         {
             var model = new Student
             {
                 FullName = viewModel.Student.FullName,
                 Gender = viewModel.Student.Gender,
-                Email = viewModel.Student.Email
+                Email = viewModel.Student.Email,
+                EnrollmentDate = viewModel.Student.EnrollmentDate
             };
             //save
             _studentRepository.Edit(model);
-            _studentRepository.Save();
+            await _studentRepository.SaveAsync();
             return RedirectToAction("Student");
         }
 
-        public IActionResult Detail(int id)
+        [HttpGet]
+        public async Task<IActionResult> Detail(int? id)
         {
-            var result = _studentRepository.GetStudent(id);
-            return View(result);
+            if (id == null)
+                return NotFound();
+
+            var student = await _studentRepository.GetStudentAsync(id);
+
+            if (student != null)
+                return View(student);
+            else
+                return NotFound();
         }
 
-        public IActionResult Edit(int id)
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
         {
-            var result = _studentRepository.GetStudent(id);
+            var result = await _studentRepository.GetStudentAsync(id);
             return View(result);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Student student)
+        public async Task<IActionResult> Edit(Student student)
         {
             if (ModelState.IsValid)
             {
                 //save
                 _studentRepository.Edit(student);
-                _studentRepository.Save();
+                await _studentRepository.SaveAsync();
                 return RedirectToAction("Student");
 
             }
             return View(student);
         }
 
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var result = _studentRepository.GetStudent(id);
+            var result = await _studentRepository.GetStudentAsync(id);
 
             if (result != null)
             {
                 _studentRepository.Delete(result);
-                _studentRepository.Save();
+                await _studentRepository.SaveAsync();
             }
             return RedirectToAction("Student");
+        }
+
+        // GET: /Student/Create
+        [Authorize(Roles = "Admin, Teacher")]
+        public IActionResult Create()
+        {
+            var student = new Student();
+            return View(student);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin, Teacher")]
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Student student)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    await _studentRepository.AddStudentAsync(student);
+                    await _studentRepository.SaveAsync();
+                    return RedirectToAction("Student");
+                }
+            }
+            catch (RetryLimitExceededException)
+            {
+                ModelState.AddModelError("", "Unable to save changes. try again, and if the problem persists see your system administrator.");
+            }
+
+            return View(student);
         }
 
     }
