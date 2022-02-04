@@ -11,9 +11,9 @@
 			<th>Email</th>
 			<th>Gender</th>
 			<th>Enrollment Date</th>
-			<th>Action1</th>
-			<th>Action2</th>
-			<th>Action3</th>
+            <th>Detail</th>
+            <th>Edit</th>
+            <th>Delete</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -23,7 +23,7 @@
 			<td>@student.FullName</td>
 			<td>@student.Email</td>
 			<td>@student.Gender</td>
-			<td>@student.EnrollmentDate</td>
+			<td>@student.EnrollmentDate.ToString("dd/mm/yyyy")</td>
 			<td><a asp-controller="Student" asp-action="Detail" asp-route-id="@student.StudentId">Detail</a></td>
 			<td><a asp-controller="Student" asp-action="Edit" asp-route-id="@student.StudentId">Edit</a></td>
 			<td><a asp-controller="Student" asp-action="Delete" asp-route-id="@student.StudentId">Delete</a></td>

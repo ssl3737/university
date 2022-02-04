@@ -1,4 +1,4 @@
-﻿@model Student
+﻿@model StudentCourseViewModel
 @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
 @functions{
     public string GetAntiXsrfRequestToken()
@@ -7,18 +7,11 @@
     }
 }
 @{
-    ViewBag.Title = "Detail Student";
+    ViewBag.Title = "View Student";
 }
 
 <!-- Page Header -->
 @await Html.PartialAsync("_StudentHeader")
 
 <!-- Main Content -->
-<div class="col-md">
-    <hr />
-    <h3>Id: @Model.StudentId</h3>
-    <h3>Name: @Model.FullName</h3>
-    <h3>Gender: @Model.Gender</h3>
-    <h3>Email: @Model.Email</h3>
-    <h3>Enrollment Date: @Model.EnrollmentDate</h3>
-</div>
+@await Html.PartialAsync("_StudentTable", Model)

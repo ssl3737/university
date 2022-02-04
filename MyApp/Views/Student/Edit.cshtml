@@ -1,44 +1,49 @@
 ﻿@model Student
-
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@functions{
+    public string GetAntiXsrfRequestToken()
+    {
+        return Xsrf.GetAndStoreTokens(Context).RequestToken;
+    }
+}
 @{
-	ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit Student";
 }
 
-<h3>Student Information</h3>
-<form class="form form-horizontal" asp-antiforgery="false" method="POST">
-    <div class="form-group">
-        <div class="col-md-3">
-            <label>Id:</label>
-            <input type="text" class="form-control" asp-for="@Model.StudentId" disabled>
+<!-- Page Header -->
+@await Html.PartialAsync("_StudentHeader")
+
+<!-- Main Content -->
+<div class="col-md">
+    <form class="form form-horizontal" asp-antiforgery="false" method="POST">
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>Name:</label>
+                <input type="text" class="form-control" asp-for="@Model.FullName">
+                <span asp-validation-for="@Model.FullName"></span>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-3">
-            <label>Name:</label>
-            <input type="text" class="form-control" asp-for="@Model.FullName">
-            <span asp-validation-for="@Model.FullName"></span>
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>Gender:</label> <br />
+                @Html.RadioButtonFor(m => m.Gender, "Male") Male <br />
+                @Html.RadioButtonFor(m => m.Gender, "Female") Female <br />
+                <span asp-validation-for="@Model.Gender"></span>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-3">
-            <label>Gender:</label>
-            @Html.RadioButtonFor(m => m.Gender, "Male") Male <br />
-            @Html.RadioButtonFor(m => m.Gender, "Female") Female <br />
-            <span asp-validation-for="@Model.Gender"></span>
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>Email:</label>
+                <input type="text" class="form-control" asp-for="@Model.Email">
+                <span asp-validation-for="@Model.Email"></span>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-3">
-            <label>Email:</label>
-            <input type="text" class="form-control" asp-for="@Model.Email">
-            <span asp-validation-for="@Model.Email"></span>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-3">
-            <label>EnrollmentDate:</label>
-            <input type="datetime-local" class="form-control" asp-for="@Model.EnrollmentDate" readonly>
-            <span asp-validation-for="@Model.EnrollmentDate"></span>
-        </div>
-    </div>	<button type="submit" class="btn btn-primary">Update</button>
-</form>
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>EnrollmentDate:</label>
+                <input type="datetime-local" class="form-control" asp-for="@Model.EnrollmentDate">
+                <span asp-validation-for="@Model.EnrollmentDate"></span>
+            </div>
+        </div>	<button type="submit" class="btn btn-primary">Update</button>
+    </form>
+</div>

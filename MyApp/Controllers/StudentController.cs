@@ -19,6 +19,32 @@ namespace University.Controllers
         }
 
         [Authorize(Roles = "Admin, Teacher")]
+        public IActionResult Index()
+        {
+            var allStudents = _studentRepository.GetAllStudents();
+            var students = new List<Student>();
+
+            foreach(var s in allStudents)
+            {
+                students.Add(new Student
+                {
+                    StudentId = s.StudentId,
+                    Email = s.Email,
+                    Gender = s.Gender,
+                    EnrollmentDate = s.EnrollmentDate,
+                    FullName = s.FullName
+                });
+            }
+
+            var viewModel = new StudentCourseViewModel
+            {
+                Students = students
+            };
+
+            return View(viewModel);
+        }
+
+        [Authorize(Roles = "Admin, Teacher")]
         public IActionResult Student()
         {
             var students = _studentRepository.GetAllStudents();
@@ -161,7 +187,7 @@ namespace University.Controllers
                 _studentRepository.Delete(result);
                 await _studentRepository.SaveAsync();
             }
-            return RedirectToAction("Student");
+            return RedirectToAction("Index");
         }
 
         // GET: /Student/Create

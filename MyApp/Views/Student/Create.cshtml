@@ -10,23 +10,10 @@
     ViewBag.Title = "Create Student";
 }
 
-<div id="loadImage"></div>
 <!-- Page Header -->
-<header class="masthead" style="background-image: url('../images/student.jpg')">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
-                <div class="site-heading">
-                    <h1>Students</h1>
-                    <span class="subheading">Manage Student</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-<!-- Main Content -->
+@await Html.PartialAsync("_StudentHeader")
 
+<!-- Main Content -->
 <div class="col-md">
     <form class="form form-horizontal" method="post">
         <div class="form-group">
@@ -54,7 +41,7 @@
         <div class="form-group">
             <div class="col-md-3">
                 <label>Enrollment Date:</label> <br />
-                <input type="date" class="form-control" asp-for="@Model.EnrollmentDate" value="@DateTime.Today" >
+                <input type="date" class="form-control" asp-for="@Model.EnrollmentDate" value="@DateTime.Today">
                 <span asp-validation-for="@Model.EnrollmentDate" class="text-danger"></span>
             </div>
         </div>
