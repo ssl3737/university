@@ -18,21 +18,21 @@
     <form class="form form-horizontal" method="post">
         <div class="form-group">
             <div class="col-md-3">
-                <label>Name:</label>
+                <label>Name</label>
                 <input type="text" class="form-control" asp-for="@Model.FullName">
                 <span asp-validation-for="@Model.FullName" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
             <div class="col-md-3">
-                <label>Email:</label>
+                <label>Email</label>
                 <input type="text" class="form-control" asp-for="@Model.Email">
                 <span asp-validation-for="@Model.Email" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
             <div class="col-md-3">
-                <label>Gender:</label> <br />
+                <label>Gender</label> <br />
                 @Html.RadioButtonFor(m => m.Gender, "Male") Male <br />
                 @Html.RadioButtonFor(m => m.Gender, "Female") Female <br />
                 <span asp-validation-for="@Model.Gender" class="text-danger"></span>
@@ -40,7 +40,7 @@
         </div>
         <div class="form-group">
             <div class="col-md-3">
-                <label>Enrollment Date:</label> <br />
+                <label>Enrollment Date</label> <br />
                 <input type="date" class="form-control" asp-for="@Model.EnrollmentDate" value="@DateTime.Today">
                 <span asp-validation-for="@Model.EnrollmentDate" class="text-danger"></span>
             </div>

@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Models.Entities;
+using Stripe;
 
 namespace University
 {
@@ -51,12 +52,13 @@ namespace University
             services.AddScoped<IStudentRepository, StudentRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddMvc();
-
+            services.Configure<StripeSettings>(_config.GetSection("Stripe"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, DbSeeder seeder)
         {
+            StripeConfiguration.SetApiKey(_config.GetSection("Stripe")["SecretKey"]);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

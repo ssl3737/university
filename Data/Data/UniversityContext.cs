@@ -13,6 +13,7 @@ namespace Data.Data
         public DbSet<Instructor> Instructors { get; set; }
         public DbSet<Person> People { get; set; }
         public DbSet<StudentCourse> StudentCourses { get; set; }
+        public DbSet<Book> Book { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
