@@ -25,6 +25,9 @@
                 @Html.DisplayNameFor(model => model.Price) ($)
             </th>
             <th></th>
+            <th>
+                Buy
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -44,19 +47,21 @@
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                     <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
+                <td>
+                    <div class="text-center">
+                        <form asp-action="Charge" asp-controller="Book" method="POST">
+                            <script src="//checkout.stripe.com/v2/checkout.js"
+                                    class="stripe-button"
+                                    data-key="@Stripe.Value.PublishableKey"
+                                    data-locale="auto"
+                                    data-description="Sample Charge"
+                                    data-amount= @Html.DisplayFor(modelItem => item.Price * 100)>
+                            </script>
+                        </form>
+                    </div>
+                </td>
+
             </tr>
         }
     </tbody>
 </table>
-
-@*<div class="text-center">
-    <form asp-action="Charge" asp-controller="Book" method="POST">
-        <script src="//checkout.stripe.com/v2/checkout.js"
-                class="stripe-button"
-                data-key="@Stripe.Value.PublishableKey"
-                data-locale="auto"
-                data-description="Sample Charge"
-                data-amount="500">
-        </script>
-    </form>
-</div>*@

@@ -62,6 +62,7 @@
 				if (response.status === 'success') {
 					showAddStudentSuccessNotification();
 					clearInputFields();
+					location.reload();
 				} else {
 					showAddStudentErrorNotification();
 				}

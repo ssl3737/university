@@ -50,7 +50,7 @@ namespace University.Controllers
             if (charge.Status == "succeeded")
             {
                 string BalanceTransactionId = charge.BalanceTransactionId;
-                return View();
+                return RedirectToAction(nameof(Index));
             }
             else
             {
@@ -58,7 +58,7 @@ namespace University.Controllers
             }
 
 
-            return View();
+            return RedirectToAction(nameof(Index));
         }
 
         
